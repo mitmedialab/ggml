@@ -529,7 +529,8 @@ static ggml_backend_reg_t ggml_backend_load_best(const char * name, bool silent,
     if (user_search_path == nullptr) {
         const fs::path executable_path = get_executable_path();
 #ifdef GGML_BACKEND_RELATIVE_TO_EXE_SEARCH_DIR
-        search_paths.push_back(executable_path + fs::u8path(GGML_BACKEND_RELATIVE_TO_EXE_SEARCH_DIR));
+        const fs::path relative_search_path = fs::u8path(GGML_BACKEND_RELATIVE_TO_EXE_SEARCH_DIR);
+        search_paths.push_back(executable_path + relative_search_path);
 #endif
 #ifdef GGML_BACKEND_DIR
         // NOTE: GGML_BACKEND_DIR is deprecated, use GGML_BACKEND_ABSOLUTE_SEARCH_DIR or
